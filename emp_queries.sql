@@ -46,6 +46,19 @@ SELECT employees.first_name, employees.last_name, employees.sex
 FROM employees
 WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
 
+-- List the frequency, in descending order, of all the employee last names
+--  how many employees share a last name
+SELECT employees.last_name, Count (*) FROM employees
+GROUP BY employees.last_name
+ORDER BY Count (*) DESC;
+
+--List the last_name "Foolsday" that appears only once, when rest are 100+ times
+SELECT employees.first_name, employees.last_name, employees.sex, employees.hire_date, departments.dept_name
+FROM employees
+JOIN department_employees ON employees.emp_no = department_employees.emp_no
+JOIN departments ON department_employees.dept_no = departments.dept_no
+WHERE employees.last_name = 'Foolsday'
+
 
 -- List every employee in the Sales department, including their employee number, last name, and first name.
 SELECT employees.emp_no, employees.last_name, employees.first_name, departments.dept_name
@@ -61,16 +74,3 @@ FROM employees
 JOIN department_employees ON employees.emp_no = department_employees.emp_no
 JOIN departments ON department_employees.dept_no = departments.dept_no
 WHERE departments.dept_name = 'Sales' OR departments.dept_name = 'Development';
-
--- List the frequency, in descending order, of all the employee last names
---  how many employees share a last name
-SELECT employees.last_name, Count (*) FROM employees
-GROUP BY employees.last_name
-ORDER BY Count (*) DESC;
-
---List the last_name "Foolsday" that appears only once, when rest are 100+ times
-SELECT employees.first_name, employees.last_name, employees.sex, employees.hire_date, departments.dept_name
-FROM employees
-JOIN department_employees ON employees.emp_no = department_employees.emp_no
-JOIN departments ON department_employees.dept_no = departments.dept_no
-WHERE employees.last_name = 'Foolsday'
